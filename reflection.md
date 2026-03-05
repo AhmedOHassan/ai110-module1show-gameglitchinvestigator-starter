@@ -9,11 +9,9 @@ When I first ran the game, the UI looked clean it had a dropdown menu with diffi
 
 - List at least two concrete bugs you noticed at the start
   (for example: "the secret number kept changing" or "the hints were backwards").
-1. After losing or wining and clicking "New Game", the game still displayed "Game over. Start a new game to try again." or "You already won. Start a new game to play again." instead of resetting properly.
+1. The remaining attempts were off by one.
 2. The guess hints were backwards, when my guess was too high, it said "Go HIGHER!" and when it was too low, it said "Go LOWER!".
-3. Easy difficulty only allowed 6 attempts while Normal allowed 8, which felt backwards since Easy should be more forgiving.
-4. The attempt counter did not decrease after the first guess, it only started counting down from the second guess onward, which was confusing and inconsistent.
-5. The score behaved strangely, sometimes rewarding points for wrong guesses instead of only rewarding a correct one.
+3. The secret number seemed to keep changing. I would guess the correct number and it would say I was wrong, but on the next attempt the same guess would work. It felt like every other guess was broken no matter what I entered.
 
 ---
 
@@ -47,8 +45,13 @@ Yes, AI helped me think about what test cases to try when checking my fixes. Whe
 ## 4. What did you learn about Streamlit and state?
 
 - In your own words, explain why the secret number kept changing in the original app.
+On every even-numbered attempt, the code converted the secret number to a string before comparing it to the guess. Since a number can never equal text, those guesses always failed, making it seem like the target kept changing. The number itself never actually changed, the comparison was just broken every other turn.
+
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+Every time you interact with a Streamlit app, like clicking a button or typing something, the entire Python script reruns from top to bottom. That means all your variables would normally reset to zero. Session state is like a small notebook the app keeps on the side, so important values like your score or number of attempts get saved and survive each rerun instead of being wiped out.
+
 - What change did you make that finally gave the game a stable secret number?
+The fix was removing the code that converted it to a string on even attempts. I changed the comparison so secret always used st.session_state.secret as an integer, meaning the guess was always compared correctly regardless of which attempt it was.
 
 ---
 
@@ -56,5 +59,10 @@ Yes, AI helped me think about what test cases to try when checking my fixes. Whe
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+One habit I want to keep is testing each bug fix immediately and in isolation before moving on to the next glitch. Instead of fixing everything at once and hoping it works, I tested one change at a time, which made it much easier to know exactly what fixed what. This made debugging faster and less confusing, and I'll apply the same approach in future projects.
+
 - What is one thing you would do differently next time you work with AI on a coding task?
+Next time, I would read and understand the AI's suggestion before applying it, instead of just copying it in and running it. On this project I sometimes accepted fixes without fully understanding why they worked, which made it harder to explain my own code.
+
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+This project made me realize that AI-generated code can look correct and still have subtle bugs that break the experience entirely. I now see AI as a starting point that always needs to be tested and understood, not a finished product I can trust blindly.
