@@ -153,5 +153,8 @@ if submit:
                     f"Score: {st.session_state.score}"
                 )
 
+    #FIX: After processing the guess, we need to rerun to update the UI with the new state (score, attempts, etc.)
+    st.rerun()
+
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
