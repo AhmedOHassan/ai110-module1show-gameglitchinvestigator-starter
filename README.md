@@ -40,8 +40,9 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📸 Demo
 
-- [x] ![Winning game screenshot](winning_game.png)
+- [x] ![Winning game screenshot](challenge1.png)
 
 ## 🚀 Stretch Features
+- [x] ![Challenge 1: Advanced Edge-Case Testing screenshot](winning_game.png)
 
 - [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
